@@ -1,0 +1,565 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+    <title> موقع خبر - @ViewBag.Title  </title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/js")
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+        function getCleintTime(utcTime) {
+            var offset = -(new Date().getTimezoneOffset() / 60);
+            utcTime = new Date(utcTime)
+            utcTime.setHours(utcTime.getHours() + offset)
+
+            if (DateDiff.inMinutes(utcTime) < 1) {
+                return ("منذ لحظات")
+            }
+            else if (DateDiff.inMinutes(utcTime) < 2) {
+                return ("منذ دقيقة")
+            }
+            else if (DateDiff.inMinutes(utcTime) < 3) {
+                return ("منذ دقيقتين")
+            }
+            else if (DateDiff.inMinutes(utcTime) < 11) {
+                return ("منذ " + DateDiff.inMinutes(utcTime) + " دقائق")
+            }
+            else if (DateDiff.inMinutes(utcTime) < 60) {
+                return ("منذ " + DateDiff.inMinutes(utcTime) + " دقيقة")
+            }
+            else if (DateDiff.inHours(utcTime) < 2) {
+                return ("منذ ساعة")
+            }
+            else if (DateDiff.inHours(utcTime) < 3) {
+                return ("منذ ساعتين")
+            }
+            else if (DateDiff.inHours(utcTime) < 11) {
+                return ("منذ " + DateDiff.inHours(utcTime) + " ساعات")
+            }
+            else if (DateDiff.inHours(utcTime) < 23) {
+                return ("منذ " + DateDiff.inHours(utcTime) + " ساعة")
+            }
+            else if (DateDiff.inDays(utcTime) < 2) {
+                return ("منذ يوم")
+            }
+            else if (DateDiff.inDays(utcTime) < 3) {
+                return ("منذ يومين")
+            }
+            else if (DateDiff.inDays(utcTime) < 11) {
+                return ("منذ " + DateDiff.inDays(utcTime) + " أيام")
+            }
+            else if (DateDiff.inDays(utcTime) < 30) {
+                return ("منذ " + DateDiff.inDays(utcTime) + " يوم")
+            }
+            else if (DateDiff.inMonths(utcTime) < 2) {
+                return ("منذ شهر")
+            }
+            else if (DateDiff.inMonths(utcTime) < 3) {
+                return ("منذ شهرين")
+            }
+            else {
+                return ("منذ عدة شهور")
+            }
+        }
+        var DateDiff = {
+            inMinutes: function (d1) {
+                var t2 = new Date().getTime();
+                var t1 = d1.getTime();
+                return parseInt((t2 - t1) / (60 * 1000));
+            },
+            inHours: function (d1) {
+                var t2 = new Date().getTime();
+                var t1 = d1.getTime();
+                return parseInt((t2 - t1) / (3600 * 1000));
+            },
+            inDays: function (d1) {
+                var t2 = new Date().getTime();
+                var t1 = d1.getTime();
+                return parseInt((t2 - t1) / (24 * 3600 * 1000));
+            },
+            inWeeks: function (d1) {
+                var t2 = new Date().getTime();
+                var t1 = d1.getTime();
+                return parseInt((t2 - t1) / (24 * 3600 * 1000 * 7));
+            },
+            inMonths: function (d1) {
+                var d1Y = d1.getFullYear();
+                var d2Y = new Date().getFullYear();
+                var d1M = d1.getMonth();
+                var d2M = new Date().getMonth();
+                return (d2M + 12 * d2Y) - (d1M + 12 * d1Y);
+            },
+            inYears: function (d1) {
+                return new Date().getFullYear() - d1.getFullYear();
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Header Top Display In large and Tablet Device -->
+        <div class="header-top hide-on-small-only">
+            <div class="container">
+                <div class="row">
+                    <div class="col l4 col m3 col s12">
+                        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+                        <!-- Dropdown -->
+                        @*<div class="header-dropdown">
+                                <!-- Dropdown Trigger -->
+                                <a class='dropdown-button btn' data-beloworigin="true" href='#' data-activates='dropdown'>Today <i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <!-- Dropdown Structure -->
+                                <ul id='dropdown' class='dropdown-content'>
+                                    <li><a href="javascript:void(0);">Today</a></li>
+                                    <li><a href="javascript:void(0);">Yesterday</a></li>
+                                    <li><a href="javascript:void(0);">1 Week</a></li>
+                                    <li><a href="javascript:void(0);">1 Month</a></li>
+                                </ul>
+                            </div>*@
+                    </div>
+                    <div class="col l4 col m5 col s12">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="/"><img src="/images/material-logo.png" alt="Logo"></a>
+                        </div>
+                    </div>
+                    <div class="col l4 col m4 col s12 pull-right">
+                        <!-- Search Button -->
+                        @using (Html.BeginForm("Search", "News", FormMethod.Post, new { @class = "searchbox" }))
+                        {
+                            <input type="text" placeholder="اكتب كلمة البحث" name="search" class="searchbox-input" required>
+                            <input type="submit" class="searchbox-submit">
+                            <span class="searchbox-icon"><i class="mdi-action-search"></i></span>
+                        }
+                        <!-- LogIn Link -->
+                        @if (Request.Cookies["UserName"] != null)
+                        {
+                            <span class="right login">@Request.Cookies["UserName"].Value</span>
+                        }
+                        else
+                        { <a href="/User/login" class="right login">تسجيل الدخول</a>}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header top Display On Mobile -->
+        <div class="header hide-on-med-and-up">
+            <div class="top-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col l4 col m5 col s2">
+                            <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+                        </div>
+                        <div class="col l4 col m4 col s5">
+                            <!-- Dropdown -->
+                            <div class="header-dropdown">
+                                @*<a class='dropdown-button btn' data-beloworigin="true" href='#' data-activates='dropdown-mobile'>Today <i class="mdi-navigation-arrow-drop-down"></i></a>
+                                    <ul id='dropdown-mobile' class='dropdown-content'>
+                                        <li><a href="javascript:void(0);">Today</a></li>
+                                        <li><a href="javascript:void(0);">Yesterday</a></li>
+                                        <li><a href="javascript:void(0);">1 Week</a></li>
+                                        <li><a href="javascript:void(0);">1 Month</a></li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                        <div class="col l4 col m4 col s3">
+                            <!-- LogIn Link -->
+                            @if (Request.Cookies["UserName"] != null)
+                            {
+                                <span class="right login">@Request.Cookies["UserName"].Value</span>
+                            }
+                            else
+                            { <a href="/User/login" class="right login">تسجيل الدخول</a>}
+                        </div>
+                        <div class="col l4 col m4 col s2">
+                            <!-- Search Button -->
+                            @using (Html.BeginForm("Search", "News", FormMethod.Post, new { @class = "searchbox" }))
+                            {
+                                <input type="text" placeholder="اكتب كلمة البحث" name="search" class="searchbox-input" required>
+                                <input type="submit" class="searchbox-submit">
+                                <span class="searchbox-icon"><i class="mdi-action-search"></i></span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col l4 col m4 col s12">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="/"><img src="/images/material-logo.png" alt="Logo"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav role="navigation" class="hide-on-small-only">
+            <div class="nav-wrapper menu-category">
+                <ul>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                @Html.ActionLink("الصفحة الرئيسية", "index", "Home")
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                @Html.ActionLink("أخبار العالم", "index", "News", new { id = 2, listNewsType = Khabar_Web.Models.ListNewsType.CategoryNews, news = "العالم" }, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                @Html.ActionLink("سياسة", "index", "News", new { id = 3, listNewsType = Khabar_Web.Models.ListNewsType.CategoryNews, news = "سياسة" }, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                @Html.ActionLink("رياضة", "index", "News", new { id = 1, listNewsType = Khabar_Web.Models.ListNewsType.CategoryNews, news = "رياضة" }, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                @Html.ActionLink("اقتصاد", "index", "News", new { id = 10, listNewsType = Khabar_Web.Models.ListNewsType.CategoryNews, news = "اقتصاد" }, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                <a href="/Category">أهم التصنيفات <i class="fa fa-angle-down"></i></a>
+                                @Html.Action("GetTopCats", "Home")
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="news-category-dropdown">
+                            <li>
+                                <a href="/Source">أهم المصادر <i class="fa fa-angle-down"></i></a>
+                                @Html.Action("GetTopSrcs", "Home")
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <ul id="slide-out" class="side-nav full">
+        <li class="logo-title">
+            <a href="/">موقع خبر</a>
+        </li>
+        <li class="waves-effect"><a href="/"><i class="fa"><img src="~/images/icons_news.png" style="vertical-align:middle;"></i>الرئيسية</a></li>
+        <li class="waves-effect"><a href="/Category"><i class="fa"><img src="~/images/icons_cats.png" style="vertical-align:middle;"></i>التصنيف</a></li>
+        <li class="waves-effect"><a href="/Source"><i class="fa"><img src="~/images/icons_globe.png" style="vertical-align:middle;"></i>المصادر</a></li>
+        @*<li class="waves-effect"><a href="/Home/index"><i class="fa"><img src="~/images/icons_search.png" style="vertical-align:middle;"></i>البحث</a></li>*@
+        @if (Request.Cookies["UserName"] == null)
+        {
+            <li class="waves-effect"><a href="/User/Login"><i class="fa"><img src="~/images/icons_settings.png" style="vertical-align:middle;"></i>تسجيل الدخول</a></li>
+        }
+        else
+        {
+            <li class="waves-effect"><a href="/User/SignOut"><i class="fa"><img src="~/images/icons_settings.png" style="vertical-align:middle;"></i>تسجيل خروج</a></li>
+        }
+        <li class="waves-effect"><a href="/Home/about"><i class="fa"><img src="~/images/info.png" style="vertical-align:middle;"></i>تطبيق الهاتف</a></li>
+        <li class="waves-effect"><a href="/Home/contact"><i class="fa"><img src="~/images/icons_contact.png" style="vertical-align:middle;"></i>اتصل بنا</a></li>
+
+        <!-- Dropdown Menu -->
+        @*<li class="dropdown-menu">
+                <ul class="collapsible" data-collapsible="expandable">
+                    <li class="">
+                        <div class="collapsible-header waves-effect waves active"><i class="fa fa-file"></i> الرئيسية <i class="fa fa-angle-right"></i></div>
+                        <div style="display: block;" class="collapsible-body">
+                            <ul>
+                                <li class="waves-effect"><a href="index.html"><i class="fa fa-angle-right"></i> Home Page 1</a></li>
+                                <li class="waves-effect active"><a href="index2.html"><i class="fa fa-angle-right"></i> Home Page 2</a></li>
+                                <li class="waves-effect"><a href="index3.html"><i class="fa fa-angle-right"></i> Home Page 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="collapsible-header waves-effect waves"><i class="fa fa-file-text"></i> News Detail<i class="fa fa-angle-right"></i></div>
+                        <div style="display: none;" class="collapsible-body">
+                            <ul>
+                                <li class="waves-effect"><a href="news-single1.html"><i class="fa fa-angle-right"></i> News Detail 1</a></li>
+                                <li class="waves-effect"><a href="news-single2.html"><i class="fa fa-angle-right"></i> News Detail 2</a></li>
+                                <li class="waves-effect"><a href="news-single3.html"><i class="fa fa-angle-right"></i> News Detail 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="collapsible-header waves-effect waves"><i class="fa fa-file-text"></i> Category <i class="fa fa-angle-right"></i></div>
+                        <div style="display: none;" class="collapsible-body">
+                            <ul>
+                                <li class="waves-effect"><a href="index-sport.html"><i class="fa fa-angle-right"></i> Sport </a></li>
+                                <li class="waves-effect"><a href="index-life.html"><i class="fa fa-angle-right"></i> Life </a></li>
+                                <li class="waves-effect"><a href="index-travel.html"><i class="fa fa-angle-right"></i> Travel </a></li>
+                                <li class="waves-effect"><a href="index-money.html"><i class="fa fa-angle-right"></i> Money </a></li>
+                                <li class="waves-effect"><a href="index-tech.html"><i class="fa fa-angle-right"></i> Tech  </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>*@
+    </ul>
+
+    <!-- Main Wrapper -->
+    <div class="wrapper grey-background">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Button -->
+                @*<div class="col l12 col m12 col s12">
+                    <div class="footer-button center-align">
+                        <span class="mdi-action-history" onclick="window.location.reload()"></span>
+                    </div>
+                </div>*@
+
+                <div class="col l12 col m12 col s12">
+                    <!-- Footer Column 1 -->
+                    <ul>
+                        <li class="footer-title">أخبار</li>
+                        <li>
+                            <a href="javascript:void(0);">Nation</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">World</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Washington</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Elections</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 2 -->
+                    <ul>
+                        <li class="footer-title">رياضة</li>
+                        <li>
+                            <a href="javascript:void(0);">NFL</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">MLB</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">NBA</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">NHL</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">NCAAF</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">NCAAB</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">More</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 3 -->
+                    <ul>
+                        <li class="footer-title">ترفيه</li>
+                        <li>
+                            <a href="javascript:void(0);">People</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Movies</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Music</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">TV</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Books</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Entertain This</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">We to Watch</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 4 -->
+                    <ul>
+                        <li class="footer-title">وطن عربي</li>
+                        <li>
+                            <a href="javascript:void(0);">Market</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Business</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Personal Finance</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Cars</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Careers</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 5 -->
+                    <ul>
+                        <li class="footer-title">خليجي</li>
+                        <li>
+                            <a href="javascript:void(0);">Personal Tech</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Gaming</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 6 -->
+                    <ul>
+                        <li class="footer-title">مجتمع</li>
+                        <li>
+                            <a href="javascript:void(0);">Travel Advice</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Experience Travel</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Destinations</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Flights</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Cruises</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Deals</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Videos</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 7 -->
+                    <ul>
+                        <li class="footer-title">تقارير</li>
+                        <li>
+                            <a href="javascript:void(0);">Cartoons</a>
+                        </li>
+                    </ul>
+
+                    <!-- Footer Column 8 -->
+                    <ul>
+                        <li class="footer-title">صفحات وحسابات</li>
+                        <li>
+                            <a href="javascript:void(0);">Hurricans</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Climate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Footer Logo -->
+            <div class="logo">
+                <a href="/"><img src="images/material-logo.png" alt="Logo"></a>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="row">
+                    <!-- Copyright Text -->
+                    <div class="col l4 col m12 col s12" style="direction:ltr;">
+                        <a class="copyrightby">&copy; by Khabr News</a>
+                    </div>
+                    <div class="col l4 col m12 col s12">
+                        <!-- Social Icon -->
+                        <div class="social-icon">
+                            <a href="javascript:void(0);"><i class="fa fa-facebook"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-youtube"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-instagram"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-linkedin"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-pinterest"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-vine"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-rss"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-tumblr"></i></a>
+                        </div>
+                    </div>
+                    <div class="col l4 col m12 col s12">
+                        <!-- Footer Menu -->
+                        <div class="footer-menu">
+                            <ul>
+                                <li>
+                                    <a href="../../Home/about">تطبيق الجوال</a>
+                                </li>
+                                <li>
+                                    <a href="../../Home/Contact">اتصل بنا</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @*<!-- Jquery -->
+        <script src="js/jquery-min.js"></script>
+        <!-- Materialize JS -->
+        <script src="js/materialize.js"></script>
+        <!-- Plugin js -->
+        <script src="js/pgwslider.js"></script>
+        <script src="js/jquery.touchSwipe.min.js"></script>
+        <script src="js/jquery.liquid-slider.js"></script>
+        <script type='text/javascript' src='js/camera.js'></script>
+        <!-- Custom Js -->
+        <script src="js/init.js"></script>*@
+
+    @RenderSection("scripts", required: false)
+
+    <script language="javascript">
+        $(document).ready(function () {
+
+            /********** replace news content if has html tags ************/
+            $('p.pcontent').each(function () {
+                if ($(this).text().match(/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/)) {
+                    $(this).text("لقراءة المزيد عن الخبر الرجاء الضغط على الرابط أدناه ...");
+                } else $(this).text($(this).text().substring(0, 90) + " ...")
+            });
+
+            /********** set period for news time ************/
+            $('span.timing').each(function () {
+                $(this).text(getCleintTime($(this).text()))
+            });
+        });
+    </script>
+</body>

@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExportNews.aspx.cs" Inherits="Kabar_admin.ExportNews" %>

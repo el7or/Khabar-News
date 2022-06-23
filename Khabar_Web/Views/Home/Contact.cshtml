@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "اتصل بنا";
+}
+
+<link href="~/css/sweetalert.css" rel="stylesheet" />
+<script src="~/js/sweetalert-dev.js"></script>
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">الرئيسية</a> <i class="fa fa-angle-left"></i> اتصل بنا
+            <div class="page-title"> اتصل بنا </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l12">
+        <div class="contact z-depth-1">
+            <!-- Contact Image -->
+            <div class="map">
+                <div class="map-overlay" onClick="style.pointerEvents='none'"></div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d927764.3550487261!2d47.382996008682426!3d24.724150391445495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2INin2YTYs9i52YjYr9mK2Kk!5e0!3m2!1sar!2seg!4v1531428326676" allowfullscreen></iframe>
+            </div>
+            <div class="contact-detail">
+                <div class="col l5 col m6 col s12">
+                    <form name="sentMessage" id="contactForm" method="post" action="#">
+                        <div class="input-field">
+                            <i class="mdi-action-perm-identity prefix"></i>
+                            <input id="name" type="text" class="validate" required>
+                            <label for="name">الاسم</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="mdi-communication-email prefix"></i>
+                            <input id="email" type="email" class="validate" required>
+                            <label for="email">البريد الإلكتروني</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                            <label for="textarea1">الرسالة</label>
+                        </div>
+                        <button class="btn btn-flat waves-effect waves-light shopping-cart-button right" type="button" name="action" onclick="swal({title: 'تم بنجاح',text: 'تم إرسال الرسالة إلى إدارة الموقع',type: 'success',timer: 2000, showConfirmButton: false  })">إرسال</button>
+                    </form>
+                </div>
+                <div class="col l7 col m6 col s12">
+                    <div class="title">وسائل التواصل</div>
+                    @*<p>Yeah, Accessories is Greate and this the fun part. we'd to talkabout your project or just chat about Accessories. So either fill out the form, pick up the phone.   </p>*@
+                    <div class="address">
+                        <p><i class="fa fa-home"></i> 33 شارع الملك فيصل - الرياض</p>
+                        <p><i class="fa fa-phone"></i> هاتف: 013443235455165</p>
+                        <p><i class="fa fa-fax"></i> فاكس: 0025574323135</p>
+                        <p><i class="fa fa-envelope"></i> البريد الإلكتروني: hello@mass-theme.com</p>
+                    </div>
+                    <div class="social-icon">
+                        <a href="javascript:void(0);"><i class="fa fa-behance"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-facebook"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-pinterest"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-instagram"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

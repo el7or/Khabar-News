@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Khabar_Web.Models.SourceVM>
+
+@{
+    ViewBag.Title = "المصادر";
+}
+
+<link href="~/css/sweetalert.css" rel="stylesheet" />
+<script src="~/js/sweetalert-dev.js"></script>
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> <a href="/Category">التصنيفات</a>
+            <i class="fa fa-angle-left"></i> المصادر
+            @if (@Request.QueryString["cat"] == null)
+            {
+                <div class="page-title"> جميع المصادر </div>
+            }
+            else
+            {
+                <div class="page-title"> مصادر @Request.QueryString["cat"] </div>
+            }
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col l12 col m12 col s12">
+            <div class="shopping-cart z-depth-1">
+                <table id="srcs" class="bordered">
+                    <thead>
+                        <tr>
+                            <th class="width-150"></th>
+                            <th>المصدر</th>
+                            <th>جديد الأخبار</th>
+                            <th>تصفح الأخبار</th>
+                            <th>تحكم التغذية</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img alt="أيقونة المصدر" src="@Html.DisplayFor(modelItem => item.Image)" class="responsive-img">
+                                </td>
+                                <td>
+                                    <div><div class="visible-xs">title</div>@Html.DisplayFor(modelItem => item.Title)</div><p>@Html.DisplayFor(modelItem => item.Info)</p>
+                                </td>
+                                <td>
+                                    <div class="visible-xs">Sources</div>@Html.DisplayFor(modelItem => item.NewsCount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("الأخبار المندرجة", "Index", "News", new { id = item.SrcID, listNewsType = Khabar_Web.Models.ListNewsType.SourceNews, news = item.Title }, null)
+                                </td>
+                                <td>
+                                    <label class="container2 lbl_@(item.SrcID)">
+                                        متابعة @Html.CheckBoxFor(m => item.isFollow, new { @checked = "checked", @id = item.SrcID })
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="myLoader_@(item.SrcID)" style="display:none;">
+                                        <img id="loading-image" src="~/ajax-loader.gif" />
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*<div class="left">
+                        <button name="action" type="button" class="btn btn-flat waves-effect waves-light shopping-cart-button" onclick="saveSources()">حفظ المصادر</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(':checkbox').change(function () {
+                var srcId = this.id
+                $(".lbl_" + srcId).hide();
+                $(".myLoader_" + srcId).show();
+                var isChecked = (this.checked ? true : false)
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveSource", "Source")',
+                    dataType: 'json',
+                    data: { src: srcId, isAdd: isChecked },
+                    success: function () {
+                        $(".myLoader_" + srcId).hide();
+                        $(".lbl_" + srcId).show();
+                        swal({
+                                title: 'عملية ناجحة',
+                                text: 'تم حفظ المصادر بنجاح !',
+                                type: 'success',
+                                timer: 2000,
+                            showConfirmButton: false
+                        })
+                    },
+                    error: function (ex) {
+                        swal({
+                            title: 'مشكلة',
+                            text: 'حدثت مشكلة أثناء العملية، الرجاء إعادة المحاولة !',
+                            type: 'error',
+                            confirmButtonText: 'حسنا'
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+    }

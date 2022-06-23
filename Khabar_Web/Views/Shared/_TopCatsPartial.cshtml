@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Khabar_Web.Models.CategoryVM>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Title, "Index", "Source", new { id = item.CatID, cat = item.Title }, null)</li>
+    }
+</ul>

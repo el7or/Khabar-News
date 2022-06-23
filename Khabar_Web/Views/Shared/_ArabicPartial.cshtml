@@ -1,0 +1,57 @@
+﻿@{
+    var ArabicNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.ArabicNews;
+}
+
+<div class="row sportDiv">
+    <div class="col l12 col m12 col s12">
+        <div class="title">الوطن العربي</div>
+    </div>
+    @Html.Partial("_KhalijyPartial")
+    
+    
+    <div class="col l6 col m6 col s12">
+        <!-- vertical News Box -->
+        <div class="news vertical z-depth-1">
+            <!-- vertical News Image -->
+            <div class="news-image">
+                <img alt="صورة الخبر" class="responsive-img" src="@ArabicNews[0].Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+            <!-- vertical News Description -->
+            <div class="news-description">
+                <div class="news-time">
+                    <i class="fa fa-clock-o"></i> <span class="timing">@ArabicNews[0].Timing</span> &ensp; | &ensp; <span>@ArabicNews[0].SourceTitle</span>
+                </div>
+                <div class="news-title large-font">
+                    @Html.ActionLink(ArabicNews[0].Title, "Details", "News", new { id = ArabicNews[0].NewsID }, null)
+                </div>
+                <div class="news-content">
+                    <p class="pcontent"> @ArabicNews[0].Content</p>
+                </div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = ArabicNews[0].NewsID }, null)
+            </div>
+        </div>
+    </div>
+    <div class="col l3 col m6 col s12">
+        <!-- vertical News Box -->
+        <div class="news vertical z-depth-1 margin-bottom-20">
+            <!-- vertical News Image -->
+            <div class="news-image">
+                <img alt="صورة الخبر" class="responsive-img" src="@ArabicNews[1].Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+            <!-- vertical News Description -->
+            <div class="news-description">
+                <div class="news-time">
+                    <i class="fa fa-clock-o"></i> <span class="timing">@ArabicNews[1].Timing</span> &ensp; | &ensp; <span>@ArabicNews[1].SourceTitle</span>
+                </div>
+                <div class="news-title large-font">
+                    @Html.ActionLink(ArabicNews[1].Title, "Details", "News", new { id = ArabicNews[1].NewsID }, null)
+                </div>
+                <div class="news-content">
+                    <p class="pcontent">@ArabicNews[1].Content</p>
+                </div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = ArabicNews[1].NewsID }, null)
+            </div>
+        </div>
+    </div>
+
+</div>

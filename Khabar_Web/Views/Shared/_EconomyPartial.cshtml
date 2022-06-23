@@ -1,0 +1,73 @@
+﻿@{
+    var SportNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.SportNews;
+}
+
+<div class="row sportDiv">
+    <div class="col l12 col m12 col s12">
+        <!-- Title -->
+        <div class="title">اقتصاد&ensp;<i class="fa fa-walking"></i></div>
+    </div>
+
+    <div class="col l6 col m12 col s12">
+        <div class="news-blog z-depth-1">
+            <div class="image">
+                <img alt="صورة الخبر" src="@SportNews[0].Image" class="responsive-img" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+            <div class="news-category">
+                <span class="green">Sport</span>
+            </div>
+            <div class="news-description">
+                <div class="news-time">
+                    <span class="timing">@SportNews[0].Timing</span> &ensp; | &ensp; <span>@SportNews[0].SourceTitle</span>
+                </div>
+                <div class="news-title">@Html.ActionLink(SportNews[0].Title, "Details", "News", new { id = SportNews[0].NewsID }, null)</div>
+                <div class="news-content"><p class="">@*@SportNews[0].Content*@</p></div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = SportNews[0].NewsID }, null)
+            </div>
+        </div>
+    </div>
+    <div class="col l3 col m6 col s12">
+        <!-- vertical  News Box -->
+        <div class="news vertical z-depth-1">
+            <!-- vertical News Image -->
+            <div class="news-image">
+                <img alt="صورة الخبر" src="@SportNews[1].Image" class="responsive-img" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+            <!-- vertical News Description -->
+            <div class="news-description">
+                <div class="news-time">
+                    <i class="fa fa-clock-o"></i> <span class="timing">@SportNews[1].Timing</span> &ensp; | &ensp; <span>@SportNews[1].SourceTitle</span>
+                </div>
+                <div class="news-title">@Html.ActionLink(SportNews[1].Title, "Details", "News", new { id = SportNews[1].NewsID }, null)</div>
+                <div class="news-content">
+                    <p class="pcontent">
+                        @SportNews[1].Content
+                    </p>
+                </div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = SportNews[1].NewsID }, null)
+            </div>
+        </div>
+    </div>
+    <div class="col l3 col m6 col s12">
+        <!-- vertical  News Box -->
+        <div class="news vertical z-depth-1">
+            <!-- vertical News Image -->
+            <div class="news-image">
+                <img alt="صورة الخبر" src="@SportNews[2].Image" class="responsive-img" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+            <!-- vertical News Description -->
+            <div class="news-description">
+                <div class="news-time">
+                    <i class="fa fa-clock-o"></i> <span class="timing">@SportNews[2].Timing</span> &ensp; | &ensp; <span>@SportNews[2].SourceTitle</span>
+                </div>
+                <div class="news-title">@Html.ActionLink(SportNews[2].Title, "Details", "News", new { id = SportNews[2].NewsID }, null)</div>
+                <div class="news-content">
+                    <p class="pcontent">
+                        @SportNews[2].Content
+                    </p>
+                </div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = SportNews[2].NewsID }, null)
+            </div>
+        </div>
+    </div>
+</div>

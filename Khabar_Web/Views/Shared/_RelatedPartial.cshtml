@@ -1,0 +1,31 @@
+﻿@{
+    var RelatedNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.RelatedNews;
+}
+
+<div class="row">
+    <div class="col l12 col m12">
+        <!-- Title -->
+        <div class="title">أخبار مرتبطة</div>
+    </div>
+    @foreach (var item in RelatedNews)
+    {
+        <div class="col l3 col m6 col s12">
+            <!-- vertical News Box -->
+            <div class="news vertical z-depth-1">
+                <!-- vertical News Image -->
+                <div class="news-image">
+                    <img alt="صورة الخبر" src="@item.Image" class="responsive-img"onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                </div>
+                <!-- vertical News Description -->
+                <div class="news-description">
+                    <div class="news-time">
+                        <i class="fa fa-clock-o"></i> <span class="timing">@item.Timing</span> &ensp; | &ensp; <span>@item.SourceTitle</span>
+                    </div>
+                    <div class="news-title"><a>@item.Title</a></div>
+                    <div class="news-content"><p class="pcontent">@item.Content</p></div>
+                    @Html.ActionLink("المزيد ...", "Details", "News", new { id = item.NewsID }, null)
+                </div>
+            </div>
+        </div>
+    }
+</div>

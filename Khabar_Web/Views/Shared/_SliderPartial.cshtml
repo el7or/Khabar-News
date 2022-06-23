@@ -1,0 +1,24 @@
+﻿
+@{
+    var SliderNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.SliderNews;
+}
+
+<div class="row">
+    <div class="col l12 col m12 col s12">
+        <!-- Tab Slider -->
+        <div id="main-slider" class="liquid-slider">
+            @foreach (var item in Enumerable.Reverse(SliderNews))
+            {
+                <div>
+                    <!-- Tab Slider Image -->
+                    <img src="@item.Image" title="اضغط لفتح الخبر" alt="صورة الخبر" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';" onclick="window.open('/News/Details/@item.NewsID')">
+                    <!-- Tab Slider Tab -->
+                    <div class="slider-tab">
+                        <div class="news-time"> @item.SourceTitle | <span class="timing">@item.Timing</span></div>
+                        <div class="news-title">@item.Title</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Khabar_Web.Models.NewsVM>
+
+@foreach (var item in Model)
+{
+    <div class="news horizontal">
+        <div class="col l3 col m3 col s12 no-padding">
+            <!-- Horizontal News Image -->
+            <div class="news-image">
+                <img class="responsive-img" src="@item.Image" alt="صورة الخبر" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            </div>
+        </div>
+        <div class="col l9 col m9 col s12 no-padding">
+            <!-- Horizontal News Description -->
+            <div class="news-description">
+                <div class="news-time">
+                    <i class="fa fa-clock-o"></i><span class="timing2">@item.Timing</span> &ensp; | &ensp; <span>@item.SourceTitle</span>
+                </div>
+                <div class="news-title"><a>@item.Title</a></div>
+                <div class="news-content">
+                    <p class="pcontent2">
+                        @item.Content
+                    </p>
+                </div>
+                @Html.ActionLink("المزيد ...", "Details", "News", new { id = item.NewsID }, null)
+            </div>
+        </div>
+    </div>
+}
+@Html.HiddenFor(model => Model.Last().Timing)
+

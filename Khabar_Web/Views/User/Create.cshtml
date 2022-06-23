@@ -1,0 +1,77 @@
+﻿@model Khabar_Web.Models.UserVM
+
+@{
+    ViewBag.Title = "التسجيل";
+}
+
+<link href="~/css/sweetalert.css" rel="stylesheet" />
+<script src="~/js/sweetalert-dev.js"></script>
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> تسجيل عضوية
+            <div class="page-title"> تسجيل عضوية جديدة </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col l12 col m12 col s12">
+            <div class="login-page z-depth-1">
+                <div class="col l4 col m6 col s12 offset-l4 offset-m3">
+                    <div class="login-title">مرحبا، يمكنك تسجيل عضوية جديدة الآن.</div>
+
+                    <div class="input-field">
+                        <i class="mdi-action-perm-identity prefix"></i>
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.email)
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "login-title" })
+
+                    </div>
+                    <div class="input-field">
+                        <i class="mdi-action-lock-open prefix"></i>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.password)
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "login-title" })
+                    </div>
+                    <div class="input-field">
+                        <i class="mdi-action-lock-open prefix"></i>
+                        @Html.EditorFor(model => model.passwordConfirm, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.passwordConfirm)
+                        @Html.ValidationMessageFor(model => model.passwordConfirm, "", new { @class = "login-title" })
+                    </div>
+
+                    <div class="forgot-password left">
+                        @Html.ActionLink("لدي عضوية بالفعل !", "Login", "User")
+                    </div>
+                    <button type="submit" class="btn btn-flat waves-effect waves-light shopping-cart-button right">دخول</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["sign"] != null)
+{
+    <script>
+        swal({ title: 'عملية ناجحة', text: 'تم تسجيل العضوية الجديدة بنجاح، وجاري التحويل للصفحة الرئيسية..', type: 'success', timer: 3000, showConfirmButton: false }, function () { window.location = '/'; })
+    </script>
+}
+@if (TempData["email"] != null)
+{
+    <script>
+        swal({
+            title: 'خطأ',
+            text: 'هذا البريد الإلكتروني مستخدم قبل ذلك، الرجاء المحاولة مرة أخرى  !',
+            type: 'error',
+            confirmButtonText: 'حسنا',
+            footer: '<a href="/User/login">الانتقال إلى صفحة تسجيل الدخول</a>'
+        })
+    </script>
+}

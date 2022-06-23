@@ -1,0 +1,118 @@
+﻿@{
+    var RecentNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.RecentNews;
+}
+
+<section class="section">
+    <div class="row recentDiv">
+        <div class="col l12 col m12 col s12">
+            <!-- Title -->
+            <div class="title">الأحدث عالميا&ensp;<i class="fa fa-globe"></i></div>
+        </div>
+        <div class="col l6 col m12 col s12">
+            <div class="z-depth-1">
+                <!-- Horizontal News Box -->
+                <div class="news horizontal">
+                    <div class="col l4 col m4 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@RecentNews[2].Image" alt="news Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                        </div>
+                    </div>
+                    <div class="col l8 col m8 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i> <span class="timing">@RecentNews[2].Timing</span> &ensp; | &ensp; <span>@RecentNews[2].SourceTitle</span>
+                            </div>
+                            <div class="news-title">@Html.ActionLink(RecentNews[2].Title, "Details", "News", new { id = RecentNews[2].NewsID }, null)</div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @RecentNews[2].Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = RecentNews[2].NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal News Box -->
+                <div class="news horizontal no-border">
+                    <div class="col l4 col m4 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@RecentNews[3].Image" alt="news Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                        </div>
+                    </div>
+                    <div class="col l8 col m8 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i> <span class="timing">@RecentNews[3].Timing</span> &ensp; | &ensp; <span>@RecentNews[3].SourceTitle</span>
+                            </div>
+                            <div class="news-title">@Html.ActionLink(RecentNews[3].Title, "Details", "News", new { id = RecentNews[3].NewsID }, null)</div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @RecentNews[3].Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = RecentNews[3].NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col l6 col m12 col s12">
+            <div class="z-depth-1">
+                <!-- Horizontal News Box -->
+                <div class="news horizontal">
+                    <div class="col l4 col m4 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@RecentNews[0].Image" alt="news Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                        </div>
+                    </div>
+                    <div class="col l8 col m8 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i> <span class="timing">@RecentNews[0].Timing</span> &ensp; | &ensp; <span>@RecentNews[0].SourceTitle</span>
+                            </div>
+                            <div class="news-title">@Html.ActionLink(RecentNews[0].Title, "Details", "News", new { id = RecentNews[0].NewsID }, null)</div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @RecentNews[0].Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = RecentNews[0].NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal News Box -->
+                <div class="news horizontal no-border">
+                    <div class="col l4 col m4 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@RecentNews[1].Image" alt="news Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                        </div>
+                    </div>
+                    <div class="col l8 col m8 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i> <span class="timing">@RecentNews[1].Timing</span> &ensp; | &ensp; <span>@RecentNews[1].SourceTitle</span>
+                            </div>
+                            <div class="news-title">@Html.ActionLink(RecentNews[1].Title, "Details", "News", new { id = RecentNews[1].NewsID }, null)</div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @RecentNews[1].Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = RecentNews[1].NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

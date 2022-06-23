@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Kabar_admin.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <link rel="icon" href="Content/a.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khabr App</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.3.1.slim.min.js"></script>
+</head>
+<body>
+
+      <form runat="server">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <a class="navbar-brand text-danger h4" href="#">
+            <img src="Content/a.png" width="40" height="40" alt="">Khabr App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse  navbar-collapse  ml-5" id="navbarSupportedContent">
+            <ul class="navbar-nav nav  mr-auto">
+                <%if (loginsession.viewnews)
+                    { %>
+                <li class="nav-item ">
+                    <a class="nav-link h5 " href="/News?#tab1"><i class="fa fa-newspaper-o"></i> News</a>
+                </li>
+                <%} %>
+                <%if (loginsession.viewsources)
+                    { %>
+                <li class="nav-item">
+                    <a class="nav-link h5" href="/Sources?#tab1"><i class="fa fa-rss-square"></i> Sources</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link h5" href="/TestRssFeed?#tab1"><i class="fa fa-rss-square"></i> Test RSS Feed</a>
+                </li>
+                <%} %>
+                <%if (loginsession.viewcats)
+                    { %>
+                <li class="nav-item">
+                    <a class="nav-link h5" href="/Categories?#tab1"><i class="fa fa-bookmark"></i> Categories</a>
+                </li>
+                <%} %>
+                <%if (loginsession.viewusers)
+                    { %>
+                <li class="nav-item">
+                    <a class="nav-link h5" href="/Accounts?#tab1"><span class="fa fa-users"></span> Accounts</a>
+                </li>
+                <%} %>
+            </ul>
+         
+            <a class="btn btn-primary" href="logout#" role="button"><i class="fa fa-user-circle-o"></i>
+                <asp:Label ID="Labelusername" runat="server" Text=""></asp:Label> , Logout <i class="fa fa-sign-out"></i></a>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid " style="">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+
+  <%--margin-top:74px;  <footer class="footer ">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>--%>
+          </form>
+    <script>
+        $(document).ready(function () {
+            // get current URL path and assign 'active' class
+            var pathname = window.location.pathname;
+            //alert(pathname);
+            //alert($('.navmenu > li > a[href="' + pathname + '"]').parent().class());
+            $('.nav> li > a[href="' + pathname + '"]').parent().addClass('active');
+           // var elmnt = document.getElementById("n" + getUrlVars()["id"]);
+            //alert(elmnt);
+            
+            //if(elmnt)
+            //elmnt.scrollIntoView();
+        })
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+    </script>
+     <script src="Scripts/jquery-3.3.1.slim.min.js"></script>
+    <script src="Scripts/umd/popper.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Khabar_Web.Models.CategoryVM>
+
+@{
+    ViewBag.Title = "التصنيفات";
+}
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> التصنيفات
+            @*<i class="fa fa-angle-right"></i> Sweater*@
+            <div class="page-title"> جميع التصنيفات </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l12 col m12 col s12">
+        <div class="shopping-cart z-depth-1">
+            <table class="bordered">
+                <thead>
+                    <tr>
+                        <th class="width-150"></th>
+                        <th>@Html.DisplayNameFor(model => model.Title)</th>
+                        <th>@Html.DisplayNameFor(model => model.SourceCount)</th>
+                        <th> تصفح المصادر</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img alt="@Html.DisplayNameFor(model => model.Image)" src="@Html.DisplayFor(modelItem => item.Image)" class="responsive-img">
+                            </td>
+                            <td>
+                                <div><div class="visible-xs">title</div>@Html.DisplayFor(modelItem => item.Title)</div><p>@Html.DisplayFor(modelItem => item.Info)</p>
+                            </td>
+                            <td>
+                                <div class="visible-xs">Sources</div>@Html.DisplayFor(modelItem => item.SourceCount)
+                            </td>
+                            <td>
+                                @Html.ActionLink("المصادر المندرجة", "Index", "Source", new { id = item.CatID,cat= item.Title }, null)
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

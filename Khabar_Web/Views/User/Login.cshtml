@@ -1,0 +1,68 @@
+﻿@model Khabar_Web.Models.UserVM
+
+@{
+    ViewBag.Title = "تسجيل الدخول";
+}
+
+<link href="~/css/sweetalert.css" rel="stylesheet" />
+<script src="~/js/sweetalert-dev.js"></script>
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> تسجيل الدخول
+            <div class="page-title"> تسجيل الدخول </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col l12 col m12 col s12">
+            <div class="login-page z-depth-1">
+                <div class="col l4 col m6 col s12 offset-l4 offset-m3">
+                    @if (ViewBag.WrongLogin == 1)
+                    {
+                        <div class="login-title">بيانات الدخول خاطئة ! الرجاء حاول مرة أخرى !</div>
+                    }
+                    else
+                    {
+                        <div class="login-title">مرحبا، يمكنك تسجيل الدخول الآن.</div>
+                    }
+
+                    <div class="input-field">
+                        <i class="mdi-action-perm-identity prefix"></i>
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.email)
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "login-title" })
+
+                    </div>
+                    <div class="input-field">
+                        <i class="mdi-action-lock-open prefix"></i>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.password)
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "login-title" })
+                    </div>
+
+                    <div class="forgot-password2 left">
+                        @Html.ActionLink("تسجيل عضوية جديدة !", "Create", "User")
+                        <br />
+                        @Html.ActionLink("نسيت كلمة المرور !", "ForgetPass", "User")
+                    </div>
+                    <button type="submit" class="btn btn-flat waves-effect waves-light shopping-cart-button right">دخول</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["login"] != null)
+{
+    <script>
+        swal({ title: 'عملية ناجحة', text: 'تم تسجيل الدخول بنجاح، وجاري التحويل للصفحة الرئيسية..', type: 'success', timer: 2000, showConfirmButton: false }, function () { window.location = '/'; })
+    </script>
+}

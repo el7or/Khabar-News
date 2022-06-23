@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Khabar_Web.Models.NewsVM>
+
+@{
+    ViewBag.Title = "الأخبار";
+}
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> <a href="/Category">التصنيفات</a>
+            <i class="fa fa-angle-left"></i> <a href="/Source">المصادر</a> <i class="fa fa-angle-left"></i> الأخبار
+            <div class="page-title"> جديد أخبار @Request.QueryString["news"] </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l12 col m12 col s12">
+        <div id="newsDiv" class="z-depth-1">
+            <!-- Horizontal News Box -->
+            @foreach (var item in Model)
+            {
+                <div class="news horizontal">
+                    <div class="col l3 col m3 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@item.Image" alt="صورة الخبر" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                        </div>
+                    </div>
+                    <div class="col l9 col m9 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i><span class="timing">@item.Timing</span> &ensp; | &ensp; <span>@item.SourceTitle</span>
+                            </div>
+                            <div class="news-title"><a>@item.Title</a></div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @item.Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = item.NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="footer-button center-align">
+    <span id="btnLoadMore" class="mdi-action-history" onclick="loadMoreNews()"></span>
+</div>
+<div class="myLoader">
+    <img class="loading-image" src="~/ajax-loader.gif" />
+</div>
+@Html.HiddenFor(model => Model.Last().Timing)
+
+@section Scripts {
+    @Scripts.Render("~/bundles/js")
+    <script type="text/javascript">
+        function loadMoreNews() {
+    var id = @Url.RequestContext.RouteData.Values["id"];
+    var newsType = "@Request.QueryString["listNewsType"]"
+            var lastDate = $("#Timing").val();
+            $("#btnLoadMore").hide();
+            $(".loading-image").show();
+            $("input[name='Timing']").remove().end().text();
+            $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetMoreNews", "News")',
+                    data: { id: id, listNewsType: newsType, lastNewsDate: lastDate},
+                    success: function (result) {
+                        $(".loading-image").hide();
+                        $("#btnLoadMore").show();
+                        $("#newsDiv").append(result);
+                        $('p.pcontent2').each(function () {
+                            if ($(this).text().match(/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/)) {
+                                $(this).text("لقراءة المزيد عن الخبر الرجاء الضغط على الرابط أدناه ...");
+                            } else $(this).text($(this).text().substring(0, 100) + " ...")
+                        });
+                        $('span.timing2').each(function () {
+                            $(this).text(getCleintTime($(this).text()))
+                        });
+                        $('p.pcontent2').addClass('pcontent').removeClass('pcontent2');
+                        $('span.timing2').addClass('timing').removeClass('timing2');
+                    },
+                    error: function (ex) {
+                        alert(alert(ex.responseText))
+                    }
+                });
+        }
+    //$(window).scroll(function () {
+    //    if ($(window).scrollTop() + $(window).height() > $(document).height() - 400) {
+    //        var scrollNow = $(document).scrollTop();
+    //            //$("#newsDiv").append($('<div>').load("/News/GetMoreNews/" + id + "?listNewsType=" + newsType + "?lastNewsDate=" + lastDate));
+                
+    //        }
+    //    });
+    </script>
+}

@@ -1,0 +1,726 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="khabrModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="CatPK" />
+          </Key>
+          <Property Name="CatPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="info" Type="nvarchar" MaxLength="500" />
+          <Property Name="icon_url" Type="nvarchar" MaxLength="500" />
+          <Property Name="isCountry" Type="bit" Nullable="false" />
+          <Property Name="bdeleted" Type="tinyint" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_frontend_users">
+          <Key>
+            <PropertyRef Name="FUserPK" />
+          </Key>
+          <Property Name="FUserPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="displayname" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="following_sources" Type="nvarchar(max)" />
+          <Property Name="Kind" Type="tinyint" />
+          <Property Name="isAdmin" Type="bit" Nullable="false" />
+          <Property Name="viewsources" Type="bit" Nullable="false" />
+          <Property Name="addsources" Type="bit" Nullable="false" />
+          <Property Name="editsources" Type="bit" Nullable="false" />
+          <Property Name="delsources" Type="bit" Nullable="false" />
+          <Property Name="viewnews" Type="bit" Nullable="false" />
+          <Property Name="addnews" Type="bit" Nullable="false" />
+          <Property Name="editnews" Type="bit" Nullable="false" />
+          <Property Name="delnews" Type="bit" Nullable="false" />
+          <Property Name="viewcats" Type="bit" Nullable="false" />
+          <Property Name="addcats" Type="bit" Nullable="false" />
+          <Property Name="editcats" Type="bit" Nullable="false" />
+          <Property Name="delcats" Type="bit" Nullable="false" />
+          <Property Name="viewclassification" Type="bit" Nullable="false" />
+          <Property Name="addclassification" Type="bit" Nullable="false" />
+          <Property Name="editclassification" Type="bit" Nullable="false" />
+          <Property Name="delclassification" Type="bit" Nullable="false" />
+          <Property Name="viewusers" Type="bit" Nullable="false" />
+          <Property Name="addusers" Type="bit" Nullable="false" />
+          <Property Name="editusers" Type="bit" Nullable="false" />
+          <Property Name="delusers" Type="bit" Nullable="false" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+          <Property Name="verifcationcode" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A3CACF_khabar.dbo.tbl_kinds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_kinds">
+          <Key>
+            <PropertyRef Name="kindPK" />
+            <PropertyRef Name="kindName" />
+            <PropertyRef Name="kindID" />
+          </Key>
+          <Property Name="kindPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kindName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="kindID" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_news_cat">
+          <Key>
+            <PropertyRef Name="NewCatPK" />
+          </Key>
+          <Property Name="NewCatPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsFK" Type="int" Nullable="false" />
+          <Property Name="CatFK" Type="int" Nullable="false" />
+          <Property Name="bdeleted" Type="tinyint" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_older_news">
+          <Key>
+            <PropertyRef Name="NewsPK" />
+          </Key>
+          <Property Name="NewsPK" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SourceFK" Type="int" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="500" />
+          <Property Name="pubdate" Type="datetime" />
+          <Property Name="spubdate" Type="nvarchar" MaxLength="200" />
+          <Property Name="sContent" Type="nvarchar(max)" />
+          <Property Name="image_url" Type="nvarchar(max)" />
+          <Property Name="video_url" Type="nvarchar(max)" />
+          <Property Name="external_url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isArgent" Type="bit" Nullable="false" />
+          <Property Name="CatList" Type="nvarchar(max)" />
+          <Property Name="kind" Type="tinyint" Nullable="false" />
+          <Property Name="authorisedby" Type="int" Nullable="false" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+          <Property Name="seencount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A3CACF_khabar.dbo.tbl_Registered_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_Registered_Users">
+          <Key>
+            <PropertyRef Name="FUserPK" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="displayname" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="indate" />
+            <PropertyRef Name="addedby" />
+            <PropertyRef Name="verifcationcode" />
+          </Key>
+          <Property Name="FUserPK" Type="int" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="displayname" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="following_sources" Type="nvarchar(max)" />
+          <Property Name="Kind" Type="tinyint" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+          <Property Name="verifcationcode" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_source">
+          <Key>
+            <PropertyRef Name="SourcePK" />
+          </Key>
+          <Property Name="SourcePK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CatFK" Type="int" />
+          <Property Name="sCats" Type="nvarchar(max)" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="info" Type="nvarchar" MaxLength="500" />
+          <Property Name="feed_url" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="icon_url" Type="nvarchar" MaxLength="500" />
+          <Property Name="isArgent" Type="bit" Nullable="false" />
+          <Property Name="isnormal" Type="bit" Nullable="false" />
+          <Property Name="isgolden" Type="bit" Nullable="false" />
+          <Property Name="issuperuser" Type="bit" Nullable="false" />
+          <Property Name="kindlist" Type="varchar" MaxLength="100" />
+          <Property Name="isManual" Type="bit" Nullable="false" />
+          <Property Name="follower_count" Type="bigint" Nullable="false" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+          <Property Name="bdeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_today_news">
+          <Key>
+            <PropertyRef Name="NewsPK" />
+          </Key>
+          <Property Name="NewsPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SourceFK" Type="int" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="pubdate" Type="datetime" />
+          <Property Name="spubdate" Type="nvarchar" MaxLength="200" />
+          <Property Name="sContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="image_url" Type="nvarchar(max)" />
+          <Property Name="video_url" Type="nvarchar(max)" />
+          <Property Name="external_url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isArgent" Type="bit" Nullable="false" />
+          <Property Name="CatList" Type="nvarchar(max)" />
+          <Property Name="kind" Type="tinyint" Nullable="false" />
+          <Property Name="kindlist" Type="varchar" MaxLength="100" />
+          <Property Name="authorisedby" Type="int" Nullable="false" />
+          <Property Name="indate" Type="datetime" Nullable="false" />
+          <Property Name="edit_date" Type="datetime" />
+          <Property Name="addedby" Type="int" Nullable="false" />
+          <Property Name="editedby" Type="int" />
+          <Property Name="seencount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_older_news_source">
+          <End Role="tbl_source" Type="Self.tbl_source" Multiplicity="1" />
+          <End Role="tbl_older_news" Type="Self.tbl_older_news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_source">
+              <PropertyRef Name="SourcePK" />
+            </Principal>
+            <Dependent Role="tbl_older_news">
+              <PropertyRef Name="SourceFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_source_cat_category">
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="1" />
+          <End Role="tbl_news_cat" Type="Self.tbl_news_cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_category">
+              <PropertyRef Name="CatPK" />
+            </Principal>
+            <Dependent Role="tbl_news_cat">
+              <PropertyRef Name="CatFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_source_cat_today_news">
+          <End Role="tbl_today_news" Type="Self.tbl_today_news" Multiplicity="1" />
+          <End Role="tbl_news_cat" Type="Self.tbl_news_cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_today_news">
+              <PropertyRef Name="NewsPK" />
+            </Principal>
+            <Dependent Role="tbl_news_cat">
+              <PropertyRef Name="NewsFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="khabrModelStoreContainer">
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_frontend_users" EntityType="Self.tbl_frontend_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_news_cat" EntityType="Self.tbl_news_cat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_older_news" EntityType="Self.tbl_older_news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_source" EntityType="Self.tbl_source" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_today_news" EntityType="Self.tbl_today_news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_kinds" EntityType="Self.tbl_kinds" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_kinds].[kindPK] AS [kindPK], 
+    [tbl_kinds].[kindName] AS [kindName], 
+    [tbl_kinds].[kindID] AS [kindID]
+    FROM [dbo].[tbl_kinds] AS [tbl_kinds]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbl_Registered_Users" EntityType="Self.tbl_Registered_Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_Registered_Users].[FUserPK] AS [FUserPK], 
+    [tbl_Registered_Users].[guid] AS [guid], 
+    [tbl_Registered_Users].[displayname] AS [displayname], 
+    [tbl_Registered_Users].[email] AS [email], 
+    [tbl_Registered_Users].[password] AS [password], 
+    [tbl_Registered_Users].[following_sources] AS [following_sources], 
+    [tbl_Registered_Users].[Kind] AS [Kind], 
+    [tbl_Registered_Users].[indate] AS [indate], 
+    [tbl_Registered_Users].[edit_date] AS [edit_date], 
+    [tbl_Registered_Users].[addedby] AS [addedby], 
+    [tbl_Registered_Users].[editedby] AS [editedby], 
+    [tbl_Registered_Users].[verifcationcode] AS [verifcationcode]
+    FROM [dbo].[tbl_Registered_Users] AS [tbl_Registered_Users]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_older_news_source" Association="Self.FK_older_news_source">
+            <End Role="tbl_source" EntitySet="tbl_source" />
+            <End Role="tbl_older_news" EntitySet="tbl_older_news" />
+          </AssociationSet>
+          <AssociationSet Name="FK_source_cat_category" Association="Self.FK_source_cat_category">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="tbl_news_cat" EntitySet="tbl_news_cat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_source_cat_today_news" Association="Self.FK_source_cat_today_news">
+            <End Role="tbl_today_news" EntitySet="tbl_today_news" />
+            <End Role="tbl_news_cat" EntitySet="tbl_news_cat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="khabrModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="CatPK" />
+          </Key>
+          <Property Name="CatPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="icon_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="bdeleted" Type="Byte" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+          <NavigationProperty Name="tbl_news_cat" Relationship="Self.FK_source_cat_category" FromRole="tbl_category" ToRole="tbl_news_cat" />
+          <Property Name="isCountry" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_frontend_users">
+          <Key>
+            <PropertyRef Name="FUserPK" />
+          </Key>
+          <Property Name="FUserPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="displayname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kind" Type="Byte" />
+          <Property Name="viewsources" Type="Boolean" Nullable="false" />
+          <Property Name="addsources" Type="Boolean" Nullable="false" />
+          <Property Name="editsources" Type="Boolean" Nullable="false" />
+          <Property Name="delsources" Type="Boolean" Nullable="false" />
+          <Property Name="viewnews" Type="Boolean" Nullable="false" />
+          <Property Name="addnews" Type="Boolean" Nullable="false" />
+          <Property Name="editnews" Type="Boolean" Nullable="false" />
+          <Property Name="delnews" Type="Boolean" Nullable="false" />
+          <Property Name="viewcats" Type="Boolean" Nullable="false" />
+          <Property Name="addcats" Type="Boolean" Nullable="false" />
+          <Property Name="editcats" Type="Boolean" Nullable="false" />
+          <Property Name="delcats" Type="Boolean" Nullable="false" />
+          <Property Name="viewclassification" Type="Boolean" Nullable="false" />
+          <Property Name="addclassification" Type="Boolean" Nullable="false" />
+          <Property Name="editclassification" Type="Boolean" Nullable="false" />
+          <Property Name="delclassification" Type="Boolean" Nullable="false" />
+          <Property Name="viewusers" Type="Boolean" Nullable="false" />
+          <Property Name="addusers" Type="Boolean" Nullable="false" />
+          <Property Name="editusers" Type="Boolean" Nullable="false" />
+          <Property Name="delusers" Type="Boolean" Nullable="false" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+          <Property Name="verifcationcode" Type="Guid" Nullable="false" />
+          <Property Name="following_sources" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_news_cat">
+          <Key>
+            <PropertyRef Name="NewCatPK" />
+          </Key>
+          <Property Name="NewCatPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsFK" Type="Int32" Nullable="false" />
+          <Property Name="CatFK" Type="Int32" Nullable="false" />
+          <Property Name="bdeleted" Type="Byte" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_category" Relationship="Self.FK_source_cat_category" FromRole="tbl_news_cat" ToRole="tbl_category" />
+          <NavigationProperty Name="tbl_today_news" Relationship="Self.FK_source_cat_today_news" FromRole="tbl_news_cat" ToRole="tbl_today_news" />
+         
+        </EntityType>
+        <EntityType Name="tbl_older_news">
+          <Key>
+            <PropertyRef Name="NewsPK" />
+          </Key>
+          <Property Name="NewsPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="SourceFK" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="sContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="video_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="external_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="authorisedby" Type="Int32" Nullable="false" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+         
+          <NavigationProperty Name="tbl_source" Relationship="khabrModel.FK_older_news_source" FromRole="tbl_older_news" ToRole="tbl_source" />
+          <Property Name="kind" Type="Byte" Nullable="false" />
+          <Property Name="pubdate" Type="DateTime" Precision="3" />
+          <Property Name="spubdate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="isArgent" Type="Boolean" Nullable="false" />
+          <Property Name="CatList" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="seencount" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_source">
+          <Key>
+            <PropertyRef Name="SourcePK" />
+          </Key>
+          <Property Name="SourcePK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="CatFK" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="feed_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="icon_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="isnormal" Type="Boolean" Nullable="false" />
+          <Property Name="isgolden" Type="Boolean" Nullable="false" />
+          <Property Name="issuperuser" Type="Boolean" Nullable="false" />
+          <Property Name="follower_count" Type="Int64" Nullable="false" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+          <NavigationProperty Name="tbl_older_news" Relationship="Self.FK_older_news_source" FromRole="tbl_source" ToRole="tbl_older_news" />
+          <NavigationProperty Name="tbl_today_news" Relationship="Self.FK_today_news_source" FromRole="tbl_source" ToRole="tbl_today_news" />
+          <Property Name="bdeleted" Type="Boolean" Nullable="false" />
+          <Property Name="isArgent" Type="Boolean" Nullable="false" />
+          <Property Name="sCats" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kindlist" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isManual" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_today_news">
+          <Key>
+            <PropertyRef Name="NewsPK" />
+          </Key>
+          <Property Name="NewsPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="SourceFK" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="video_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="external_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="authorisedby" Type="Int32" Nullable="false" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+          <NavigationProperty Name="tbl_news_cat" Relationship="Self.FK_source_cat_today_news" FromRole="tbl_today_news" ToRole="tbl_news_cat" />
+          <NavigationProperty Name="tbl_source" Relationship="Self.FK_today_news_source" FromRole="tbl_today_news" ToRole="tbl_source" />
+          <Property Name="kind" Type="Byte" Nullable="false" />
+          <Property Name="pubdate" Type="DateTime" Precision="3" />
+          <Property Name="spubdate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="isArgent" Type="Boolean" Nullable="false" />
+          <Property Name="seencount" Type="Int64" Nullable="false" />
+          <Property Name="CatList" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kindlist" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_source_cat_category">
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="1" />
+          <End Role="tbl_news_cat" Type="Self.tbl_news_cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_category">
+              <PropertyRef Name="CatPK" />
+            </Principal>
+            <Dependent Role="tbl_news_cat">
+              <PropertyRef Name="CatFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_source_cat_today_news">
+          <End Role="tbl_today_news" Type="Self.tbl_today_news" Multiplicity="1" />
+          <End Role="tbl_news_cat" Type="Self.tbl_news_cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_today_news">
+              <PropertyRef Name="NewsPK" />
+            </Principal>
+            <Dependent Role="tbl_news_cat">
+              <PropertyRef Name="NewsFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_older_news_source">
+          <End Role="tbl_source" Type="Self.tbl_source" Multiplicity="1" />
+          <End Role="tbl_older_news" Type="Self.tbl_older_news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_source">
+              <PropertyRef Name="SourcePK" />
+            </Principal>
+            <Dependent Role="tbl_older_news">
+              <PropertyRef Name="SourceFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_today_news_source">
+          <End Role="tbl_source" Type="Self.tbl_source" Multiplicity="1" />
+          <End Role="tbl_today_news" Type="Self.tbl_today_news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_source">
+              <PropertyRef Name="SourcePK" />
+            </Principal>
+            <Dependent Role="tbl_today_news">
+              <PropertyRef Name="SourceFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="khabrEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" />
+          <EntitySet Name="tbl_frontend_users" EntityType="Self.tbl_frontend_users" />
+          <EntitySet Name="tbl_news_cat" EntityType="Self.tbl_news_cat" />
+          <EntitySet Name="tbl_older_news" EntityType="Self.tbl_older_news" />
+          <EntitySet Name="tbl_source" EntityType="Self.tbl_source" />
+          <EntitySet Name="tbl_today_news" EntityType="Self.tbl_today_news" />
+          <AssociationSet Name="FK_source_cat_category" Association="Self.FK_source_cat_category">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="tbl_news_cat" EntitySet="tbl_news_cat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_source_cat_today_news" Association="Self.FK_source_cat_today_news">
+            <End Role="tbl_today_news" EntitySet="tbl_today_news" />
+            <End Role="tbl_news_cat" EntitySet="tbl_news_cat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_older_news_source" Association="Self.FK_older_news_source">
+            <End Role="tbl_source" EntitySet="tbl_source" />
+            <End Role="tbl_older_news" EntitySet="tbl_older_news" />
+          </AssociationSet>
+          <AssociationSet Name="FK_today_news_source" Association="Self.FK_today_news_source">
+            <End Role="tbl_source" EntitySet="tbl_source" />
+            <End Role="tbl_today_news" EntitySet="tbl_today_news" />
+          </AssociationSet>
+          <EntitySet Name="tbl_kinds" EntityType="khabrModel.tbl_kinds" />
+          <EntitySet Name="tbl_Registered_Users" EntityType="khabrModel.tbl_Registered_Users" />
+        </EntityContainer>
+        <EntityType Name="tbl_kinds">
+          <Key>
+            <PropertyRef Name="kindPK" />
+            <PropertyRef Name="kindName" />
+            <PropertyRef Name="kindID" />
+          </Key>
+          <Property Name="kindPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kindName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kindID" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Registered_Users">
+          <Key>
+            <PropertyRef Name="FUserPK" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="displayname" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="indate" />
+            <PropertyRef Name="addedby" />
+            <PropertyRef Name="verifcationcode" />
+          </Key>
+          <Property Name="FUserPK" Type="Int32" Nullable="false" />
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="displayname" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="following_sources" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Kind" Type="Byte" />
+          <Property Name="indate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="edit_date" Type="DateTime" Precision="3" />
+          <Property Name="addedby" Type="Int32" Nullable="false" />
+          <Property Name="editedby" Type="Int32" />
+          <Property Name="verifcationcode" Type="Guid" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="khabrModelStoreContainer" CdmEntityContainer="khabrEntities">
+          <EntitySetMapping Name="tbl_category">
+            <EntityTypeMapping TypeName="khabrModel.tbl_category">
+              <MappingFragment StoreEntitySet="tbl_category">
+                <ScalarProperty Name="isCountry" ColumnName="isCountry" />
+                <ScalarProperty Name="CatPK" ColumnName="CatPK" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="icon_url" ColumnName="icon_url" />
+                <ScalarProperty Name="bdeleted" ColumnName="bdeleted" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_frontend_users">
+            <EntityTypeMapping TypeName="khabrModel.tbl_frontend_users">
+              <MappingFragment StoreEntitySet="tbl_frontend_users">
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="following_sources" ColumnName="following_sources" />
+                <ScalarProperty Name="FUserPK" ColumnName="FUserPK" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Kind" ColumnName="Kind" />
+                <ScalarProperty Name="viewsources" ColumnName="viewsources" />
+                <ScalarProperty Name="addsources" ColumnName="addsources" />
+                <ScalarProperty Name="editsources" ColumnName="editsources" />
+                <ScalarProperty Name="delsources" ColumnName="delsources" />
+                <ScalarProperty Name="viewnews" ColumnName="viewnews" />
+                <ScalarProperty Name="addnews" ColumnName="addnews" />
+                <ScalarProperty Name="editnews" ColumnName="editnews" />
+                <ScalarProperty Name="delnews" ColumnName="delnews" />
+                <ScalarProperty Name="viewcats" ColumnName="viewcats" />
+                <ScalarProperty Name="addcats" ColumnName="addcats" />
+                <ScalarProperty Name="editcats" ColumnName="editcats" />
+                <ScalarProperty Name="delcats" ColumnName="delcats" />
+                <ScalarProperty Name="viewclassification" ColumnName="viewclassification" />
+                <ScalarProperty Name="addclassification" ColumnName="addclassification" />
+                <ScalarProperty Name="editclassification" ColumnName="editclassification" />
+                <ScalarProperty Name="delclassification" ColumnName="delclassification" />
+                <ScalarProperty Name="viewusers" ColumnName="viewusers" />
+                <ScalarProperty Name="addusers" ColumnName="addusers" />
+                <ScalarProperty Name="editusers" ColumnName="editusers" />
+                <ScalarProperty Name="delusers" ColumnName="delusers" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+                <ScalarProperty Name="verifcationcode" ColumnName="verifcationcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_news_cat">
+            <EntityTypeMapping TypeName="khabrModel.tbl_news_cat">
+              <MappingFragment StoreEntitySet="tbl_news_cat">
+                <ScalarProperty Name="NewCatPK" ColumnName="NewCatPK" />
+                <ScalarProperty Name="NewsFK" ColumnName="NewsFK" />
+                <ScalarProperty Name="CatFK" ColumnName="CatFK" />
+                <ScalarProperty Name="bdeleted" ColumnName="bdeleted" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_older_news">
+            <EntityTypeMapping TypeName="khabrModel.tbl_older_news">
+              <MappingFragment StoreEntitySet="tbl_older_news">
+                <ScalarProperty Name="seencount" ColumnName="seencount" />
+                <ScalarProperty Name="CatList" ColumnName="CatList" />
+                <ScalarProperty Name="isArgent" ColumnName="isArgent" />
+                <ScalarProperty Name="spubdate" ColumnName="spubdate" />
+                <ScalarProperty Name="pubdate" ColumnName="pubdate" />
+                <ScalarProperty Name="kind" ColumnName="kind" />
+                <ScalarProperty Name="NewsPK" ColumnName="NewsPK" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="SourceFK" ColumnName="SourceFK" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="sContent" ColumnName="sContent" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="video_url" ColumnName="video_url" />
+                <ScalarProperty Name="external_url" ColumnName="external_url" />
+                <ScalarProperty Name="authorisedby" ColumnName="authorisedby" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_source">
+            <EntityTypeMapping TypeName="khabrModel.tbl_source">
+              <MappingFragment StoreEntitySet="tbl_source">
+                <ScalarProperty Name="isManual" ColumnName="isManual" />
+                <ScalarProperty Name="kindlist" ColumnName="kindlist" />
+                <ScalarProperty Name="sCats" ColumnName="sCats" />
+                <ScalarProperty Name="isArgent" ColumnName="isArgent" />
+                <ScalarProperty Name="bdeleted" ColumnName="bdeleted" />
+                <ScalarProperty Name="SourcePK" ColumnName="SourcePK" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="CatFK" ColumnName="CatFK" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="feed_url" ColumnName="feed_url" />
+                <ScalarProperty Name="icon_url" ColumnName="icon_url" />
+                <ScalarProperty Name="isnormal" ColumnName="isnormal" />
+                <ScalarProperty Name="isgolden" ColumnName="isgolden" />
+                <ScalarProperty Name="issuperuser" ColumnName="issuperuser" />
+                <ScalarProperty Name="follower_count" ColumnName="follower_count" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_today_news">
+            <EntityTypeMapping TypeName="khabrModel.tbl_today_news">
+              <MappingFragment StoreEntitySet="tbl_today_news">
+                <ScalarProperty Name="kindlist" ColumnName="kindlist" />
+                <ScalarProperty Name="CatList" ColumnName="CatList" />
+                <ScalarProperty Name="seencount" ColumnName="seencount" />
+                <ScalarProperty Name="isArgent" ColumnName="isArgent" />
+                <ScalarProperty Name="spubdate" ColumnName="spubdate" />
+                <ScalarProperty Name="pubdate" ColumnName="pubdate" />
+                <ScalarProperty Name="kind" ColumnName="kind" />
+                <ScalarProperty Name="NewsPK" ColumnName="NewsPK" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="SourceFK" ColumnName="SourceFK" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="sContent" ColumnName="sContent" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="video_url" ColumnName="video_url" />
+                <ScalarProperty Name="external_url" ColumnName="external_url" />
+                <ScalarProperty Name="authorisedby" ColumnName="authorisedby" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_kinds">
+            <EntityTypeMapping TypeName="khabrModel.tbl_kinds">
+              <MappingFragment StoreEntitySet="tbl_kinds">
+                <ScalarProperty Name="kindID" ColumnName="kindID" />
+                <ScalarProperty Name="kindName" ColumnName="kindName" />
+                <ScalarProperty Name="kindPK" ColumnName="kindPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Registered_Users">
+            <EntityTypeMapping TypeName="khabrModel.tbl_Registered_Users">
+              <MappingFragment StoreEntitySet="tbl_Registered_Users">
+                <ScalarProperty Name="verifcationcode" ColumnName="verifcationcode" />
+                <ScalarProperty Name="editedby" ColumnName="editedby" />
+                <ScalarProperty Name="addedby" ColumnName="addedby" />
+                <ScalarProperty Name="edit_date" ColumnName="edit_date" />
+                <ScalarProperty Name="indate" ColumnName="indate" />
+                <ScalarProperty Name="Kind" ColumnName="Kind" />
+                <ScalarProperty Name="following_sources" ColumnName="following_sources" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="FUserPK" ColumnName="FUserPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

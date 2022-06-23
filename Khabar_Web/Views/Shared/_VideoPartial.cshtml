@@ -1,0 +1,37 @@
+﻿@{
+    var VideoNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.VideoNews;
+}
+
+<div class="row">
+    <div class="col l12 col m12 col s12">
+        <div class="title">فيديو&ensp;<i class="fa fa-file-video"></i></div>
+    </div>
+    @foreach (var item in VideoNews)
+    {
+        <div class="col l6 col m6 col s12">
+            <!-- News Blog Box -->
+            <div class="news-blog z-depth-1">
+                <div class="video-container no-controls">
+                    @*<iframe src="//www.youtube.com/embed/getId(@item.Image)" onload="this.onload=null; this.src=//www.youtube.com/embed/getId(_@item.Image);" allowfullscreen></iframe>*@
+                    <iframe src="@item.Image" allowfullscreen></iframe>
+                </div>
+                <div class="news-category">
+                    <span class="orange">Video</span>
+                </div>
+                <div class="news-description">
+                    <div class="news-time">
+                        <span class="timing">@item.Timing</span> &ensp; | &ensp; <span>@item.SourceTitle</span>
+                    </div>
+                    <div class="news-title">
+                        @Html.ActionLink(item.Title, "Details", "News", new { id = item.NewsID }, null)
+                    </div>
+                    <div class="news-content">
+                        <p class="pcontent">
+                            @item.Content
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

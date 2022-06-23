@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Khabar_Web.Models.NewsVM>
+
+@{
+    ViewBag.Title = "البحث في الأخبار";
+}
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> البحث في الأخبار
+            <div class="page-title"> نتائج البحث عن: <b>@ViewBag.txtSearch</b> </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l12 col m12 col s12">
+        <div class="z-depth-1">
+            <!-- Horizontal News Box -->
+            @foreach (var item in Model)
+            {
+                <div class="news horizontal">
+                    <div class="col l4 col m4 col s12 no-padding">
+                        <!-- Horizontal News Image -->
+                        <div class="news-image">
+                            <img class="responsive-img" src="@item.Image" alt="صورة الخبر">
+                        </div>
+                    </div>
+                    <div class="col l8 col m8 col s12 no-padding">
+                        <!-- Horizontal News Description -->
+                        <div class="news-description">
+                            <div class="news-time">
+                                <i class="fa fa-clock-o"></i><span class="timing">@item.Timing</span>
+                            </div>
+                            <div class="news-title"><a>@item.Title</a></div>
+                            <div class="news-content">
+                                <p class="pcontent">
+                                    @item.Content
+                                </p>
+                            </div>
+                            @Html.ActionLink("المزيد ...", "Details", "News", new { id = item.NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

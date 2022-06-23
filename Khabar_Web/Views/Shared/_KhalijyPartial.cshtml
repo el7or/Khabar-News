@@ -1,0 +1,27 @@
+﻿@{
+    var KhalijiNews = (List<Khabar_Web.Models.NewsVM>)ViewBag.KhalijiNews;
+}
+
+<div class="col l3 col m12 col s12">
+    <div class="sidbar-box z-depth-1">
+        <div class="sidebar-title">خـلـيـجـي</div>
+        <div class="news-sidebar">
+            @foreach (var item in KhalijiNews)
+            {
+                <div class="news-box">
+                    <div class="image">
+                        <img alt="صورة الخبر" src="@item.Image" onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+                    </div>
+                    <div class="news-detail">
+                        <div class="news-category">
+                            <a>@item.SourceTitle | <span class="timing">@item.Timing</span> </a>
+                        </div>
+                        <div class="news-title">
+                            @Html.ActionLink(item.Title, "Details", "News", new { id = item.NewsID }, null)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

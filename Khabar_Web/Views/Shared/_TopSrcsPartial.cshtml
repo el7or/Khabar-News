@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Khabar_Web.Models.SourceVM>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.Title, "Index", "News", new { id = item.SrcID, listNewsType = Khabar_Web.Models.ListNewsType.SourceNews, news = item.Title }, null)</li>
+    }
+</ul>

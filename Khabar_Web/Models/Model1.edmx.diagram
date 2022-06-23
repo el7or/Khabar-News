@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0399ade4af2640839f3a13e2a9865d36" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.tbl_category" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.tbl_frontend_users" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.tbl_news_cat" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.tbl_older_news" Width="1.5" PointX="5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.tbl_source" Width="1.5" PointX="2.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.tbl_today_news" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK_source_cat_category" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_source_cat_today_news" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_older_news_source" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_tbl_today_news_tbl_source" />
+        <EntityTypeShape EntityType="Models.tbl_kinds" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="Models.tbl_Registered_Users" Width="1.5" PointX="9.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

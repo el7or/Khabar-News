@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97bce5007cfd4f99b045b9f1d72da1fd" Name="Diagram1" DisplayType="true" ZoomLevel="92">
+        <EntityTypeShape EntityType="khabrModel.tbl_category" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="khabrModel.tbl_frontend_users" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="khabrModel.tbl_news_cat" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="khabrModel.tbl_older_news" Width="1.5" PointX="3.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="khabrModel.tbl_source" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="khabrModel.tbl_today_news" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="khabrModel.FK_source_cat_category" ManuallyRouted="false" />
+        <AssociationConnector Association="khabrModel.FK_source_cat_today_news" ManuallyRouted="false" />
+        <AssociationConnector Association="khabrModel.FK_older_news_source" ManuallyRouted="false" />
+        <AssociationConnector Association="khabrModel.FK_today_news_source" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="khabrModel.tbl_kinds" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="khabrModel.tbl_Registered_Users" Width="1.5" PointX="7.75" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

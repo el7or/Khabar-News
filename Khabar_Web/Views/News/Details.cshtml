@@ -1,0 +1,28 @@
+﻿@model Khabar_Web.Models.NewsVM
+
+@{
+    ViewBag.Title = "تفاصيل الخبر";
+}
+
+<div class="row">
+    <div class="col l12">
+        <div class="news-single z-depth-1">
+            <!-- News Single Image -->
+            <img alt="صورة الخبر" src="@Model.Image" class="responsive-img"onerror="this.onerror=null;this.src='/images/icons_news2.jpg';">
+            <!-- News Single Description -->
+            <div class="col l8 offset-l2">
+                <a class="btn-floating btn-large waves-effect waves-light"><i class="fa fa-star"></i></a>
+                <!-- News Time -->
+                <div class="news-time">@Model.SourceTitle <i class="fa fa-clock-o"></i><span class="timing">@Model.Timing</span></div>
+                <!-- News Title -->
+                <div class="news-title">@Model.Title</div>
+                <p>
+                    @Html.Raw(@Model.Content)
+                </p>
+                <a href="@Model.ExternalURL" target="_blank">افتح موقع الخبر الأصلي</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_RelatedPartial")

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kabar_admin", "Kabar_admin.csproj", "{53684FA8-2806-4FF1-885B-79CD5BCF6F2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsApi", "..\NewsApi\NewsApi.csproj", "{E516226F-CF69-4398-8D9A-3B696FD305CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53684FA8-2806-4FF1-885B-79CD5BCF6F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53684FA8-2806-4FF1-885B-79CD5BCF6F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53684FA8-2806-4FF1-885B-79CD5BCF6F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53684FA8-2806-4FF1-885B-79CD5BCF6F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E516226F-CF69-4398-8D9A-3B696FD305CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E516226F-CF69-4398-8D9A-3B696FD305CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E516226F-CF69-4398-8D9A-3B696FD305CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E516226F-CF69-4398-8D9A-3B696FD305CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

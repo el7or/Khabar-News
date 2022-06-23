@@ -1,0 +1,68 @@
+﻿@model Khabar_Web.Models.UserVM
+
+@{
+    ViewBag.Title = "كلمة المرور";
+}
+
+<link href="~/css/sweetalert.css" rel="stylesheet" />
+<script src="~/js/sweetalert-dev.js"></script>
+
+<div class="row">
+    <div class="col l12 col m12 col s12 center-align">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">الرئيسية</a> <i class="fa fa-angle-left"></i> كلمة المرور
+            <div class="page-title"> إرسال كلمة المرور </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col l12 col m12 col s12">
+            <div class="login-page z-depth-1">
+                <div class="col l4 col m6 col s12 offset-l4 offset-m3">
+                    <div class="login-title">الرجاء إدخال البريد الإلكتروني المسجل لدينا</div>
+
+                    <div class="input-field">
+                        <i class="mdi-action-perm-identity prefix"></i>
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "validate" } })
+                        @Html.LabelFor(model => model.email)
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "login-title" })
+
+                    </div>
+
+                    <div class="forgot-password left">
+                        @Html.ActionLink("تسجيل عضوية جديدة !", "Create", "User")
+                    </div>
+                    <button type="submit" class="btn btn-flat waves-effect waves-light shopping-cart-button right">إرسال كلمة المرور</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:right;direction:rtl;font-size:larger;font-weight:bold;">
+
+    </div>
+}
+
+@if (TempData["forget"] != null)
+{
+    <script>
+        swal({ title: 'عملية ناجحة', text: 'تم إرسال كلمة المرور إلى البريد الإلكتروني !', type: 'success', timer: 3000, showConfirmButton: false }, function () { window.location = '/User/Login'; })
+    </script>
+}
+@if (TempData["emailWrong"] != null)
+{
+    <script>
+        swal({
+            title: 'خطأ',
+            text: 'هذا البريد الإلكتروني غير مسجل لدينا، الرجاء المحاولة مرة أخرى  !',
+            type: 'error',
+            confirmButtonText: 'حسنا',
+            footer: '<a href="/User/login">الانتقال إلى صفحة تسجيل الدخول</a>'
+        })
+    </script>
+}
